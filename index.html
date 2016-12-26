@@ -6,15 +6,17 @@
     <script src="https://aframe.io/releases/0.4.0/aframe.min.js"></script>
     <script src="https://cdn.rawgit.com/donmccurdy/aframe-extras/v3.1.0/dist/aframe-extras.min.js"></script>
     
-    <title>Popvr Webvr Sample</title>
+    <title>PopWebVr Test Build Holodeck</title>
   </head>
   <style>
       #PopvrGif {
         position: absolute;
         bottom: 5px;
         left: 5px;
-        width: 240px;
+        width: 120px;
+        height: 120px;
         z-index: 1;
+        scroll-behavior: none;
       }
 
         .Label {
@@ -163,7 +165,7 @@
             
     </a-scene>
 
-    <iframe id="PopvrGif" src="http://popvr.io" width="150" height="150" frameborder="0" allowtransparency="true"></iframe>
+    <image id="PopvrGif" src="popvrImage.gif" width="100" height="100" frameborder="0" scrolling="false" allowtransparency="true"></image>
 
     <!-- iframe -->
     <script>
