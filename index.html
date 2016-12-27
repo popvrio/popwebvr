@@ -5,10 +5,52 @@
     <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no,user-scalable=no,maximum-scale=1">
     <script src="https://aframe.io/releases/0.4.0/aframe.min.js"></script>
     <script src="https://cdn.rawgit.com/donmccurdy/aframe-extras/v3.1.0/dist/aframe-extras.min.js"></script>
-    
-    <title>PopVR Holodeck Test Build</title>
+    <link href='//fonts.googleapis.com/css?family=Nova Square' rel='stylesheet'>
+    <title>Popwebvr</title>
   </head>
   <style>
+  .screen {
+        position: relative;
+        background: transparent;
+        width: 100%;
+        height: 100%;
+        z-index: 99999;
+        text-align: center;
+        padding-top: 15%;
+        color:      #85c1e9;
+        font-family: 'Sarpanch';font-size: 10px;; 
+      }
+
+      .title {
+        font-weight: bold;
+        font-size: 50px;
+        text-shadow: 1px 1px #000000, 
+                     2px 2px #000000, 
+                     3px 3px #000000;
+
+      }
+
+      .start, .end {
+         font-weight: bold;
+         margin-top: 45px;
+         font-size: 35px;
+      }
+
+      .instructions {
+         margin-top: 45px;
+         font-size: 20px;
+      }
+
+      .blink {
+        animation: blink 2.5s linear infinite;
+      }
+
+      @keyframes blink {  
+        0% { opacity: 0.0; }
+        50% { opacity: 1.0; }
+        100% { opacity: 0.0; }
+      }
+
       #PopvrGif {
         position: absolute;
         bottom: 5px;
@@ -51,7 +93,8 @@
       <a-assets>
        <a-asset-item id="Robo-obj" src="robospy1.obj"></a-asset-item>
     <a-asset-item id="Robo-mtl" src="robospy1.mtl"></a-asset-item>
-        <a-asset-item id="roboShot" src="roboShot.ply"></a-asset-item>
+    <a-asset-item id="Shot-obj" src="roboShot.obj"></a-asset-item>
+    <a-asset-item id="Shot-mtl" src="roboShot.mtl"></a-asset-item>
         <a-asset-item id="ComicStore-obj" src="ComicStore.obj"></a-asset-item>
         <a-asset-item id="ComicStore-mtl" src="ComicStore.mtl"></a-asset-item>
         <a-asset-item id="BillBoard-obj" src="BillBoard.obj"></a-asset-item>
@@ -64,16 +107,30 @@
         <a-asset-item id="DesertPlantation2-mtl" src="DesertPlantation2.mtl"></a-asset-item>
        <a-asset-item id="DesertPlantation3-obj" src="DesertPlantation3.obj"></a-asset-item>
         <a-asset-item id="DesertPlantation3-mtl" src="DesertPlantation3.mtl"></a-asset-item>
+        <a-asset-item id="plane1-obj" src="plane1.obj"></a-asset-item>
+        <a-asset-item id="plane1-mtl" src="plane1.mtl"></a-asset-item>
         <audio id="Ambience" src="loopermandrums.mp3" preload="auto"> </audio>
          <audio id="Shot" src="roboExplode.mp3" preload="auto"> </audio>
              <audio id="DinoFall" src="Jab.mp3" preload="auto"> </audio>
       </a-assets>
 
 <!-- startup screen -->
+<div class="">
   <button class="Label">
     <a target="_blank" href="https://aframe.io">A-Frame</a>
   </button>
 </div>
+<div class="screen title-screen">
+      <div class="title">Holodeck Test Build</div>
+      <div class="start blink">Click to Start</div>
+      <div class="instructions">Use WASD or Arrows or Controller To Move <br> 
+      Use Cursor to <br> change wall color <br>
+      Put things back as they were <br>
+      Travel to the Bar <br>
+      Code, assets and credits on Github
+      </div>
+      </div>
+
     
       <a-entity id="Robo" obj-model="obj: #Robo-obj; mtl: #Robo-mtl" position="-60.13 0.00 -121.56" rotation="0.00 20.88 0.00" scale="6.5 6.5 6.5">
       <a-animation begin="16100" attribute="position" from="-60.13 0.00 -121.56"
@@ -86,17 +143,21 @@
     
       </a-entity>
 
-       <a-entity id="roboShot" ply-model="src: #roboShot" position="-56.99 59.40 -102.26" rotation="-90.00 20.88 0.00" scale="1 1 1" sound="src: #Shot; on: click;  volume: 5"> 
-       <a-animation begin="15000" attribute="position" from="-56.99 59.40 -102.26"
-                   to="84.12 47.06 57.65" fill="both"></a-animation>
+       <a-entity id="roboShot" obj-model="obj: #Shot-obj; mtl: #Shot-mtl" position="-45.93 67.55 -85.01" rotation="-90.00 20.00 0.00" scale="3 3 3" sound="src: #Shot; on: click; volume: 10"> 
+       <a-animation begin="15000" attribute="position" from="-45.93 67.55 -85.01"
+                   to="91.64 67.55 80.50" duration="500" fill="both"></a-animation>
 
-                  <a-animation begin="click" attribute="position" from="84.12 47.06 57.65"
-                   to="-58.28 53.60 -104.32" fill="both"></a-animation>  
+                  <a-animation begin="click" attribute="position" from="91.64 67.55 80.50"
+                   to="-45.93 67.55 -85.01" fill="both"></a-animation> 
                    </a-entity>
 
       <a-entity id="ComicStore" obj-model="obj: #ComicStore-obj; mtl: #ComicStore-mtl" position="148.26 0.00 -162.34" rotation="0 0 0" scale="2 2 2"></a-entity>
 
-      <a-entity id="BillBoard" obj-model="obj: #BillBoard-obj; mtl: #BillBoard-mtl" position="156.46 1.94 -153.57" rotation="0 0 0" scale="4 4 4"></a-entity>
+      <a-entity id="BillBoard" checkpoint obj-model="obj: #BillBoard-obj; mtl: #BillBoard-mtl" position="156.46 1.94 -153.57" rotation="0 0 0" scale="4 4 4" light="intensity:0.3;color:#fffff9;type:point;target:null;angle:90">
+        <a-animation begin="1000" attribute="light.intensity" from="0.3"
+                   to="0.8" duration="2000" fill="both" repeat="indefinite"></a-animation>
+
+      </a-entity>
 
 
       <a-entity id="TrexColor" obj-model="obj: #TrexColor-obj; mtl: #TrexColor-mtl" position="107.48 0.00 82.31" rotation="0 134.65 0" scale="5 5 5" sound="src: #DinoFall; on: click">
@@ -123,13 +184,13 @@
 
       <a-entity id="CactusLeftFar" position="-287.37 0 -269.65" rotation="0.00 0 0" scale="1.5 1.5 1.5" obj-model="obj: #DesertPlantation2-obj; mtl: #DesertPlantation2-mtl"></a-entity>
 
-      <a-entity id="CactusNearStore" position="47.33 0 -84.41" rotation="0.00 0 0" scale="1.5 1.5 1.5" obj-model="obj: #DesertPlantation3-obj; mtl: #DesertPlantation3-mtl"></a-entity>
+      <a-entity checkpoint id="CactusNearStore" position="47.33 0 -84.41" rotation="0.00 0 0" scale="1.5 1.5 1.5" obj-model="obj: #DesertPlantation3-obj; mtl: #DesertPlantation3-mtl"></a-entity>
 
       <a-entity position="-160.66 0 -130.74" rotation="0.00 -23.76 0.00" scale="1.5 1.5 1.5" obj-model="obj: #DesertPlantation2-obj; mtl: #DesertPlantation2-mtl"></a-entity>
 
       <a-entity position="-178.18 0 17.01" rotation="0.00 -23.759999999999998 0" scale="1.5 1.5 1.5" obj-model="obj: #DesertPlantation2-obj; mtl: #DesertPlantation2-mtl"></a-entity>
 
-      <a-entity position="-283.67 0 283.16" rotation="0.00 77.92226013779197 0" scale="1.5 1.5 1.5" obj-model="obj: #DesertPlantation3-obj; mtl: #DesertPlantation3-mtl"></a-entity>
+      <a-entity checkpoint position="-283.67 0 283.16" rotation="0.00 77.92226013779197 0" scale="1.5 1.5 1.5" obj-model="obj: #DesertPlantation3-obj; mtl: #DesertPlantation3-mtl"></a-entity>
 
       <a-entity position="230.62 0 185.95" rotation="0.00 161.00 0" scale="1.5 1.5 1.5" obj-model="obj: #DesertPlantation2-obj; mtl: #DesertPlantation2-mtl"></a-entity>
 
@@ -141,20 +202,21 @@
 
     
 
-<a-entity id="Holobox" cursor-listener geometry="primitive: box" position="1.99 195.56 0.00" rotation="0.00 0.00 0.00" scale="600 400 600" material="shader: flat; side: back; transparent: false; color: #0000ff"> </a-entity>
+<a-entity id="Holobox" cursor-listener geometry="primitive: box" position="1.99 156.02 0.00" rotation="0.00 0.00 0.00" scale="600 400 600" material="shader: flat; side: back; transparent: false; color: #0000ff"> </a-entity>
 
-     <a-entity id="HoloboxGrid" geometry="primitive: box" position="1.99 195.56 0.00" rotation="0.00 0.00 0.00" scale="600 400 600" material="shader: flat; side: back; transparent: true; repeat: 15 15; src: grid1.png"> </a-entity>
+     <a-entity id="HoloboxGrid" geometry="primitive: box" position="1.99 156.02 0.00" rotation="0.00 0.00 0.00" scale="600 400 600" material="shader: flat; side: back; transparent: true; repeat: 15 15; src: grid1.png"> </a-entity>
 
      <a-entity id="lightDirectional" position="-205.22 207.90 218.00" rotation="-89.95 -36.67 0" light="intensity:0.5;target:null;type:directional"></a-entity>
      <a-entity id="lightAmbient" position="0 5 0" rotation="-89.95 -36.67 0" light="intensity:0.8;color:#fffff9;type:ambient;target:null">
+     <a-animation begin="1000" attribute="light.intensity" from="0.3"
+                   to="0.8" duration="2000" fill="both"></a-animation>
      </a-entity>
- <a-entity id="lightPoint" position="124.43 209.38 -124.32" rotation="-89.95 -36.67 0" scale="3 3 3" light="intensity:0.3;color:#fffff9;type:point;target:null;angle:90">
-     </a-entity>
+ 
 
-      <a-entity id="ComicStorePlane" geometry="primitive: plane" material="color:#6c6c6c;normalScale:{&quot;x&quot;:1,&quot;y&quot;:1}" material="ambientOcclusionTextureOffset: [object Object]; ambientOcclusionTextureRepeat: [object Object]; color: #6c6c6c; displacementTextureOffset: [object Object]; displacementTextureRepeat: [object Object]; normalScale: [object Object]; normalTextureOffset: [object Object]; normalTextureRepeat: [object Object]; offset: [object Object]; repeat: [object Object]" position="151.28 0.15 -192.40" rotation="-90.00 0.00 0.00" scale="300 215 300" class="collidable"></a-entity> 
+      <a-entity id="ComicStorePlane" checkpoint obj-model="obj: #plane1-obj; mtl: #plane1-mtl" position="151.28 0.15 -192.40" rotation="0 0.00 0.00" scale="3 0.8 2.3" class="collidable"></a-entity> 
 
 
-      <a-entity id="player" camera="active: true; far: 1000; fov: 90; near: 0.01; userHeight: 2.6 zoom: 1.0" wasd-controls="accelaration: 100.00; adAxis: x; adEnabled: true; adInverted: false; easing: 5.00; fly: false; wsAxis: z; wsEnabled: true; wsinverted: true;" look-controls="enaled: true; hmdEnabled: true; reverseMouseDrag: false; standing: true" data-aframe-inspector="default-camera" position="-108.81 41.38 104.83" rotation="-21.46 -51.27 0.00" scale="1.00 1.00 1.00" universal-controls="movementControls">
+      <a-entity id="player" camera="active: true; far: 1000; fov: 90; near: 0.01; userHeight: 2.6 zoom: 1.0" wasd-controls="accelaration: 100.00; adAxis: x; adEnabled: true; adInverted: false; easing: 5.00; fly: false; wsAxis: z; wsEnabled: true; wsinverted: true;" look-controls="enaled: true; hmdEnabled: true; reverseMouseDrag: false; standing: true" data-aframe-inspector="default-camera" position="-108.81 41.38 104.83" rotation="-21.46 -51.27 0.00" scale="1.00 1.00 1.00" checkpoint-controls="mode: animate" universal-controls="movementControls: checkpoint">
           <a-entity
             position="0 0 -10"
             geometry="primitive: ring"
@@ -172,6 +234,13 @@
     <script>
     var PopvrGif = document.querySelector('#PopvrGif')
     </script>
+
+    <!-- startup screen -->
+    <script>
+      var titleEl = document.querySelector('.title-screen');
+      titleEl.addEventListener('click', function() { titleEl.style.display = 'none'; });
+    </script>
+
 <!--- Component to change to random color on click. -->
 <script>
 AFRAME.registerComponent('cursor-listener', {
